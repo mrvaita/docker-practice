@@ -43,3 +43,6 @@ CMD [ "/sbin/tini", "--", "node", "./bin/www" ]
 # Node Docker Good Defaults sample project on GitHub to change this Dockerfile for 
 # better local development with more advanced topics
 # https://github.com/BretFisher/node-docker-good-defaults
+
+# To build the image execute `docker build -t testnode .` from the app dir
+# To test the container execute `docker container run --rm -p 80:3000 testnode`
