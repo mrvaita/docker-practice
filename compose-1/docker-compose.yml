@@ -1,0 +1,26 @@
+# Drupal with PostgreSQL
+# Access via `http://localhost:8080`
+
+version: '2'
+
+services:
+    drupi:
+        image: drupal:8.8.2
+        ports:
+            - '8080:80'
+        volumes:
+            - drupal_modules:/var/www/html/modules
+            - drupal_profiles:/var/www/html/profiles
+            - drupal_themes:/var/www/html/themes
+            - drupal_sites:/var/www/html/sites
+
+    psql:
+        image: postgres:12.1
+        environment:
+            POSTGRES_PASSWORD: pass
+
+volumes:
+    drupal_modules:
+    drupal_profiles:
+    drupal_themes:
+    drupal_sites:
