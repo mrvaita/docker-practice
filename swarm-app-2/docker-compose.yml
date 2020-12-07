@@ -1,0 +1,38 @@
+# Drupal with PostgreSQL
+# Access via `http://localhost:8080`
+# Create stack with external secrets
+
+version: '3.1'
+
+services:
+    drupi:
+        image: drupal:8.8.2
+        ports:
+            - '8080:80'
+        volumes:
+            - drupal-modules:/var/www/html/modules
+            - drupal-profiles:/var/www/html/profiles
+            - drupal-themes:/var/www/html/themes
+            - drupal-sites:/var/www/html/sites
+
+    psql:
+        image: postgres:12.1
+        environment:
+            - POSTGRES_PASSWORD_FILE=/run/secrets/psql-pw
+        # Add the secret to docker with:
+        # `echo pass | docker secret create psql-pw -`
+        secrets:
+            - psql-pw
+        volumes:
+            - drupal-data:/var/lib/postgresql/data
+
+volumes:
+    drupal-modules:
+    drupal-profiles:
+    drupal-themes:
+    drupal-sites:
+    drupal-data:
+
+secrets:
+    psql-pw:
+        external: true
